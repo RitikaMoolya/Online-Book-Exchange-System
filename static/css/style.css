@@ -1,0 +1,902 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Barlow Semi Condensed", sans-serif;
+}
+
+:root{
+    --body-color: #FFF;
+    --nav-color: #FFF;
+    --side-nav: #002619;
+    --text-color: #808080;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    min-height: 100vh;
+    padding-top: 95px;
+    background-color: var(--body-color);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 95px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 1000;
+}
+
+nav .nav-bar {
+    height: 100%;
+    /* padding: 0 20px; */
+    padding: 0 40px;
+    margin-left: 60px;
+    display: flex;
+    align-items: center;        
+    justify-content: space-between;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 65px;      
+    width: auto;
+    display: block;
+}
+
+.menu {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar .nav-links li{
+    list-style: none;
+    justify-content: center;
+}
+
+.nav-links li a {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+    
+}
+
+.nav-links li a:hover{
+    color: #5bb450;
+}
+
+.nav-bar .nav-btns{
+    /* position: absolute;
+    right: 40px;
+    display: flex;
+    gap: 15px; */
+    position: absolute;
+    right: 40px;
+    display: flex;
+    align-items: center; /* Crucial: centers icon and button horizontally */
+    gap: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-bar .nav-btns a {
+    text-decoration: none;
+}
+
+.btn.login-btn {
+    background: linear-gradient(135deg, #0b1220, #08101b);
+    color: #ffffff;
+    padding: 10px 28px;
+    border-radius: 999px;   
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn.login-btn:hover {
+    background: linear-gradient(135deg, #101a30, #0b1220);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.btn.signup-btn {
+    color: #08101b;
+    border: 1px solid #08101b;
+    padding: 10px 28px;
+    border-radius: 999px;   
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn.signup-btn:hover {
+    background: linear-gradient(135deg, #101a30, #0b1220);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.main-bg{
+    background: #faf8f1;;
+}
+
+.main {
+    background-image: url("/media/images/bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: calc(100vh - 95px);
+    width: 100%;
+    /* margin-top: 100px;  */
+    animation: heroSlideDown 2.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.btn.home-btn{
+    background: #5bb450;
+    color: #ffffff;
+    padding: 10px 28px;
+    border-radius: 999px;   
+    font-size: 20px;
+    font-weight: 600;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.btn.home-btn:hover{
+    color: #ffffff;
+    border: 3px solid #5bb450;
+   
+}
+
+@keyframes heroSlideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#servicess,
+.services-content {
+    scroll-margin-top: 120px; /* navbar height + spacing */
+}
+
+.services-content{
+    margin-top: 15px;
+    /* padding-bottom: 200px; */
+}
+
+.services-content .card {
+    border-radius: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.services-content .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.services-content .card-bg{
+    background-color: #08101b;
+}
+
+.services-content .material-symbols-outlined {
+    font-size: 28px; /* Adjust size as needed */
+    color: #5bb450; /* Using your brand green from the login button */
+    vertical-align: middle;
+    padding: 8px;
+}
+
+#categories,
+.category-slider {
+    scroll-margin-top: 120px; /* navbar height + spacing */
+}
+
+.category-slider {
+    padding: 70px 0;
+    margin-top: 50px;
+}
+
+.category-track {
+    display: flex;
+    gap: 60px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 30px 80px;
+    border: 1.5px solid #222;
+    border-radius: 120px;
+}
+
+.category-track::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    min-width: 200px;
+    text-align: center;
+}
+
+.category-item h5 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.category-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background: #111;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    font-size: 22px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.slider-btn.left { left: -10px; }
+.slider-btn.right { right: -10px; }
+
+.footer-section {
+    background: #08101b; 
+    color: #ffffff; 
+    /* padding-top: 80px; */
+}
+
+.footer-text {
+    color: #cfd8dc;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.footer-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #cfd8dc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #5bb450;
+}
+
+.newsletter-box {
+    display: flex;
+    background: #ffffff;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.newsletter-box input {
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    flex: 1;
+}
+
+.newsletter-box button {
+    background: #5bb450;
+    border: none;
+    padding: 0 18px;
+    color: #ffffff;
+}
+
+/* .social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+} */
+
+.social-icons a {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #cfd8dc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-decoration: none;  
+}
+
+.social-icons a:hover {
+    background: #5bb450;
+    border-color: #5bb450;
+}
+
+.footer-bottom {
+    background: rgba(0,0,0,0.4);
+    font-size: 14px;
+}
+
+/* .login-form{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 95px);
+    padding: 80px 0;
+    background: url("/media/images/login-bg.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.login-form::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.wrapper{
+    position: relative;  
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.wrapper h1{
+    font-size: 36px;
+    text-align: center; 
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.login-input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 50px 20px 20px;
+}
+
+.login-input:focus {
+    border-color: #ffffff;
+}
+
+.login-input::placeholder{
+    color: #fff;
+}
+
+.input-box span{
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+.wrapper .remember-forget{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forget label input{
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forget a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forget a:hover{
+    text-decoration: underline;
+}
+
+.wrapper .btn{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #333;
+    font-weight: 600;
+}
+
+.wrapper .btn:hover {
+    background: #f0f0f0;
+}
+
+.wrapper .register-link{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover{
+    text-decoration: underline;
+} */
+
+/* ================= LOGIN PAGE ONLY ================= */
+
+/* 1. Hide footer and standard nav ONLY on login page */
+body.login-page footer,
+body.login-page .footer-section,
+body.login-page nav {
+    display: none !important;
+}
+
+/* 2. Login Page Background & Overlay (Matching Image 1) */
+body.login-page {
+    overflow: hidden;
+    padding-top: 60px; /* Space for the smaller header */
+}
+
+/* Container for the background image */
+.login-form {
+    position: relative;
+    min-height: 100vh;
+    /* Ensure your background image is high resolution */
+    background: url("/media/images/login-bg.jpg") center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* The Blur + Bottom Fade Effect */
+.login-form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* High blur to match Bookchor style */
+    backdrop-filter: blur(3px); 
+    -webkit-backdrop-filter: blur(8px);
+    
+    /* Complex gradient: 
+       Starts subtle at top, clears in middle, fades to solid white at bottom */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,   /* Clear at the top */
+        rgba(255, 255, 255, 0) 50%,  /* Stays clear until past the middle */
+        rgba(255, 255, 255, 0.8) 75%,/* Becomes mostly white near the bottom */
+        rgba(255, 255, 255, 1) 85%
+    );
+    z-index: 1;
+}
+
+/* 3. Small Height Header */
+.login-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px; /* Reduced height */
+    width: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 30px;
+}
+
+.back-arrow {
+    position: absolute;
+    left: 20px;
+    color: #333;
+    text-decoration: none;
+}
+
+.login-logo img {
+    height: 50px; /* Smaller logo for smaller header */
+}
+
+/* 4. The White Login Card (Image 1 Style) */
+.wrapper {
+    position: relative;
+    z-index: 2; /* Sits above the blurred overlay */
+    width: 420px;
+    background: #ffffff; /* Solid white card */
+    border-radius: 12px;
+    padding: 40px;
+    /* Soft, deep shadow to give it depth on the blurred background */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    color: #333;
+    transform: translateY(-30px);
+}
+
+/* Ensure headings and text are dark for high contrast */
+.wrapper h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #0e1047;
+    text-align: center;
+}
+
+/* Input Styles */
+.input-box {
+    position: relative;
+    /* margin-bottom: 20px; */
+}
+
+/* Target the Django form widget inputs */
+.input-box input {
+    width: 100%;
+    height: 50px;
+    background: #ffffff; /* Pure white matches the login card better */
+    border: 1px solid #0e1047;
+    border-radius: 8px;
+    /* Added 45px padding on the right to make space for the icon */
+    padding: 0 45px 0 15px; 
+    margin-bottom: 15px;
+    font-size: 16px;
+    display: block;
+    outline: none;
+}
+
+.input-box span {
+    position: absolute;
+    right: 15px;
+    /* Adjusted top to account for the input's 15px margin-bottom 
+       to keep the icon vertically centered within the box itself */
+    top: calc(50% - 1px); 
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 20px;
+    /* Critical: ensures clicks pass through the icon to the input field */
+    pointer-events: none; 
+    display: flex;
+    align-items: center;
+}
+
+/* Remember & Forgot Row */
+.remember-forget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.remember-forget a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Submit Button */
+.wrapper .btn {
+    width: 100%;
+    height: 48px;
+    background: #0e1047; /* Matching your brand dark color */
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid #0e1047;
+    transition: 0.3s;
+}
+
+.wrapper .btn:hover {
+    background:#070941;
+    color: white;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+body.profile-page nav,
+body.profile-page footer {
+    display: none !important;
+}
+
+.profile-icon {
+    display: flex; /* Makes the icon container a flexbox */
+    align-items: center; 
+    justify-content: center;
+    color: #007bff;
+    text-decoration: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.profile-icon .material-icons {
+    font-size: 32px;
+    line-height: 1; /* Prevents font line-height from adding extra space */
+    vertical-align: middle;
+}
+
+.profile-icon:hover {
+    color: #0056b3;
+    transform: scale(1.1);
+}
+
+/* PROFILE PAGE */
+.profile-page {
+    padding-top: 60px;
+    min-height: 100vh;
+    background:
+        linear-gradient(
+            to bottom,
+            #2f5f4a 0%,
+            #2f5f4a 50%,
+            #d9e8d3 50%,
+            #d9e8d3 100%
+        );
+    overflow: hidden;
+}
+
+/* Main card */
+
+.profile-card {
+    width: 420px;
+    background: white;
+    border-radius: 24px;
+    padding: 80px 40px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+.username-color{
+    color: #0b1220;
+}
+
+/* Avatar */
+
+.profile-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: -140px;
+    border: 6px solid white;
+}
+
+/* Placeholder avatar */
+
+.profile-avatar.placeholder {
+    background: #0b1220;
+}
+
+/* Menu */
+
+.profile-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
+}
+
+/* Each row */
+
+.profile-menu li {
+    margin: 0;
+}
+
+/* Menu link */
+
+.profile-menu a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+    color: #08101b;
+    padding: 12px 16px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+/* Left side (icon + text) */
+
+.menu-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Left icons */
+
+.menu-icon {
+    font-size: 20px;
+    color: #2f5f4a;
+}
+
+/* Arrow */
+
+.arrow {
+    font-size: 22px;
+    color: #999;
+}
+
+/* Hover effect */
+
+.profile-menu a:hover {
+    background: #d3d3d3;
+    color: #5bb450;
+}
+
+/* Logout */
+
+.profile-menu .logout a {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.profile-menu .logout .menu-icon,
+.profile-menu .logout .arrow {
+    color: #dc3545;
+}
+
+.profile-menu .logout a:hover {
+    background: #f8d7da;
+    color: #b02a37;
+}
+
+.profile-meta {
+    margin-top: px;
+    font-size: 16px;
+    color: #666;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+body.profile-edit-page nav,
+body.profile-edit-page footer {
+    display: none !important;
+}
+
+.profile-edit-page {
+    overflow: hidden;
+    background: linear-gradient(135deg, #a9ccab 0%, #d9e8d3 50%, #a9ccab 100%);
+}
+
+.edit-profile-page {
+    padding-top: 10px;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-profile-card {
+    width: 420px;
+    border-radius: 20px !important;
+    padding: 15px;
+}
+
+.edit-profile-card label {
+    color: #0b1220;
+    font-weight: 500;
+}
+
+.avatar-field {
+    margin-top: 15px; /* space before Change */
+}
+
+.avatar-field a {
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.clear-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.avatar-change {
+    margin-top: 6px;
+}
+
+.card-body h3{
+    color: #0b1220;
+}
+
+.save-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    display: block;
+    margin: 25px auto 0;
+    width: 100%; /* Full width looks better on mobile-sized cards */
+    background-color: #5bb450;
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.save-btn:hover {
+    background-color: #4a9441;
+    transform: translateY(-1px);
+}

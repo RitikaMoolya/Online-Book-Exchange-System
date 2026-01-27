@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% block body_class %}login-page{% endblock %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<div class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <a href="{% url 'Home' %}" class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </a>
+</div>
+<div class="login-form">
+    <div class="wrapper">
+    <form action="{% url 'Login' %}" method="post" class="">
+        {% csrf_token %}
+        <h1>Login</h1>
+         <!-- Username -->
+         <div class="input-box">
+            {{ form.username}}
+            <span class="material-icons">person</span>
+        </div>
+        {% if form.username.errors %}
+            <small class="text-danger">{{ form.username.errors }}</small>
+        {% endif %}
+
+        <!-- Password -->
+        <div class="input-box">
+            {{ form.password }}
+            <span class="material-icons">lock</span>
+        </div>
+        {% if form.password.errors %}
+            <small class="text-danger">{{ form.password.errors }}</small>
+        {% endif %}
+
+        <!-- Remember + Forgot -->
+        <div class="remember-forget">
+            <label><input type="checkbox"> Remember me</label>
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn">Login</button>
+
+        <div class="register-link">
+            <p>Don't have an account? <a href="{% url 'Signup' %}">Sign Up</a></p>
+        </div>
+
+        <!-- Non-field errors -->
+        {% if form.non_field_errors %}
+            <div class="text-danger mt-3">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </form>
+    </div>
+</div>
+{% endblock content %}

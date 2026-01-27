@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block body_class %}profile-edit-page{% endblock %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<header class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <div class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </div>
+</header>
+
+<div class="edit-profile-page">
+
+    <div class="card edit-profile-card shadow-lg">
+
+        <div class="card-body">
+
+            <h3 class="text-center mb-4">Edit Profile</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    {{ user_form.username.label_tag }}
+                    {{ user_form.username }}
+                </div>
+
+                <div class="mb-3">
+                    {{ user_form.email.label_tag }}
+                    {{ user_form.email }}
+                </div>
+
+                <div class="mb-3">
+                    {{ profile_form.phone.label_tag }}
+                    {{ profile_form.phone }}
+                </div>
+                
+                <div class="avatar-field">
+
+                    <label>Avatar:</label>
+
+                   {% comment %}
+
+                   {% if profile_form.instance.avatar %}
+
+                   <div class="mb-2">
+
+                   Currently: <a href="{{ profile_form.instance.avatar.url }}" target="_blank"> {{ profile_form.instance.avatar.name }} </a>
+
+                   {% endcomment %}
+
+                   <span class="clear-checkbox"> {{ profile_form.avatar.clear }} </span>
+
+                   </div> {% comment %}
+
+                   {% endif %} {% endcomment %}
+
+                    <div class="avatar-change"> {{ profile_form.avatar }} </div>
+
+                   </div>
+               
+
+                <button type="submit" class="btn btn-success mt-3 save-btn">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

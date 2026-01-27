@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            Django App
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <header>
+        <nav class="fixed-top bg-white">
+         <div class="nav-bar d-flex align-items-center justify-content-between px-4">
+             <span class="logo">
+                 <a href="{% url 'Home' %}">
+                     <img src="/media/images/website_logo.png" alt="BookLoop Logo">
+                     {% comment %} <img src="{% static 'images/website_logo.png' %}" alt="BookLoop Logo"> {% endcomment %}
+                     {% comment %} <img src="{{ MEDIA_URL }}images/website_logo.png" alt="BookLoop Logo"> {% endcomment %}
+                 </a>
+             </span>
+             <div class="menu">
+                 <ul class="nav-links d-flex gap-2 list-unstyled mb-0">
+                     <li><a href="{% url 'Home' %}">Home</a></li>
+                     <li><a href="#categories">Explore Categories</a></li>
+                     <li><a href="#services">Services</a></li>
+                     
+                     <li><a href="#">Explore Books</a></li>
+                     <li><a href="{% url 'Contact Us' %}">Contact</a></li>
+                 </ul>
+             </div>
+             <div class="nav-btns d-flex align-items-center gap-3">
+                {% if user.is_authenticated %}
+
+                <!-- Profile icon -->
+                <a href="{% url 'profile' %}" class="profile-icon">
+                    <span class="material-icons">account_circle</span>
+                </a>
+        
+                <!-- Logout -->
+                <a href="{% url 'Logout' %}" class="btn login-btn">
+                    Logout
+                </a>
+        
+                {% else %}
+            
+                    <!-- Login -->
+                    <a href="{% url 'Login' %}" class="btn login-btn">Login</a>
+            
+                    <!-- Sign Up -->
+                    <a href="{% url 'Signup' %}" class="btn signup-btn">Sign Up</a>
+        
+                {% endif %}
+              </div>
+         </div>
+        </nav>
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        
+        <footer class="footer-section text-white">
+            <div class="container py-5">
+              <div class="row gy-4 justify-content-center text-center text-md-start">
+                <!-- Brand -->
+                <div class="col-md-3 d-flex flex-column align-items-center align-items-md-start">
+                  <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+                    <span class="material-symbols-outlined text-success">menu_book</span>
+                    <h4 class="mb-0 text-success fw-bold">BookLoop</h4>
+                  </div>
+                  <p class="footer-text fs-5">
+                    Your next great read starts here.
+                  </p>
+                  <p><i class='bx bx-phone'></i> (480) 555-0103</p>
+                  <p><i class='bx bx-envelope'></i> hello@bookloop.com</p>
+                </div>
+                <!-- Helpful Links -->
+                <div class="col-md-3 d-flex flex-column align-items-center align-items-md-start">
+                  <h5 class="footer-title">Helpful Links</h5>
+                  <ul class="footer-links list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Explore Books</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    {% comment %} <li><a href="#">Explore Books</a></li> {% endcomment %}
+                  </ul>
+                </div>          
+                <!-- Pages -->
+                {% comment %} <div class="col-md-3">
+                  <h5 class="footer-title">Pages</h5>
+                  <ul class="footer-links">
+                    <li><a href="#">Sign Up</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">404 Page</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                  </ul>
+                </div> {% endcomment %}
+                <!-- Newsletter -->
+                <div class="col-md-3 d-flex flex-column align-items-center align-items-md-start">
+                  <h5 class="footer-title">Stay Connected</h5>
+                  <div class="newsletter-box d-flex rounded-pill overflow-hidden bg-white">
+                    <input type="email" class="form-control border-0 rounded-0" placeholder="Email Address">
+                    <button class="btn btn-success rounded-0 px-4">
+                      <span class="material-symbols-outlined">send</span>
+                    </button>
+                  </div>
+                  <h6 class="mt-4">Social Community</h6>
+                  <div class="social-icons d-flex gap-3 mt-2">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                  </div>
+                </div>
+          
+              </div>
+            </div>
+            <!-- Bottom Bar -->
+            <div class="footer-bottom text-center py-3 small">
+              <p class="mb-0">
+                © 2025 BookLoop
+              </p>
+            </div>
+          </footer>
+</body>
+</html>

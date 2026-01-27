@@ -1,0 +1,162 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+   <main class='main-bg'>
+   <section class="main d-flex flex-column justify-content-center align-items-center text-center">
+    <div class='hero-content'>
+        <p class="main-slogan fw-bold mb-2 text-white display-2">Where Books Find New Readers.</p>
+        <p class="sub-slogan text-white fs-5 fw-normal">Exchange, earn points, and discover books shared by readers around you.</p>
+        <a href="#" class="btn home-btn mt-5 d-inline-flex align-items-center gap-1">Explore Now <span class="material-symbols-outlined">chevron_forward</span></a>
+    </div>
+   </section>
+   <section id='categories' class="category-slider "> 
+    <div class="container position-relative">
+  
+      <!-- Left Arrow -->
+      <button class="slider-btn left" onclick="scrollSlider(-1)">
+        ‹
+      </button>
+  
+      <!-- Slider -->
+      <div class="category-track d-flex gap-5 px-5 py-4 rounded-pill border" id="categoryTrack">
+  
+        <div class="category-item text-center">
+          <div class="icon-circle">❤</div>
+          <h5>Romance</h5>
+          <p>Learning Resources</p>
+        </div>
+  
+        <div class="category-item text-center">
+          <div class="icon-circle">📄</div>
+          <h5>Documentary</h5>
+          <p>Learning Resources</p>
+        </div>
+  
+        <div class="category-item text-center">
+          <div class="icon-circle">✨</div>
+          <h5>Fantasy</h5>
+          <p>Learning Resources</p>
+        </div>
+  
+        <div class="category-item text-center">
+          <div class="icon-circle">📘</div>
+          <h5>Textbook</h5>
+          <p>Learning Resources</p>
+        </div>
+
+        <div class="category-item text-center">
+          <div class="icon-circle">📘</div>
+          <h5>Textbook</h5>
+          <p>Learning Resources</p>
+        </div>
+
+        <div class="category-item text-center">
+          <div class="icon-circle">✨</div>
+          <h5>Fantasy</h5>
+          <p>Learning Resources</p>
+        </div>
+
+        <div class="category-item text-center">
+          <div class="icon-circle">✨</div>
+          <h5>Fantasy</h5>
+          <p>Learning Resources</p>
+        </div>
+  
+      </div>
+  
+      <!-- Right Arrow -->
+      <button class="slider-btn right" onclick="scrollSlider(1)">
+        ›
+      </button>
+  
+    </div>
+  </section>
+  
+   <section id="services" class="services-content py-5 text-center">
+    <div class="container text-center pb-5">
+      <h1 class="fw-bold mb-2">OUR SERVICES</h1>
+      <p class="fw-medium mb-5">
+        Everything you need to discover, exchange, and enjoy books—made simple.
+      </p>
+      <div class="row g-4 justify-content-center">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">book_2</span>Book Exchange</h5>
+              <p class="card-text">
+                Swap books with readers nearby and discover new stories without spending money.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">diamond_shine</span>Earn Reward Points</h5>
+              <p class="card-text">
+                Earn points for every exchange and use them to unlock more books.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">document_search</span>Discover New Reads</h5>
+              <p class="card-text">
+                Explore books shared by readers in your community and beyond.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">groups</span>Community Driven</h5>
+              <p class="card-text">
+                Connect with fellow book lovers and build a reading network.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">heart_plus</span>Wishlist & Tracking</h5>
+              <p class="card-text">
+                Keep track of books you want to read and exchanges you’ve made.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm border-0 rounded-4">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">encrypted_add</span>Safe & Easy</h5>
+              <p class="card-text">
+                Simple, secure exchanges designed for a smooth experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+{% endblock %}
+
+  {% comment %} <script>
+    function scrollSlider(direction) {
+        const track = document.getElementById('categoryTrack');
+        track.scrollBy({
+            left: direction * 300,
+            behavior: 'smooth'
+        });
+    }
+    </script>    
+</body>
+</html> {% endcomment %}

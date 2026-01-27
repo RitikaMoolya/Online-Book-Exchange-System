@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block body_class %}login-page{% endblock %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block content %}
+<div class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <a href="{% url 'Home' %}" class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </a>
+</div>
+
+<div class="login-form">
+    <div class="wrapper">
+        <form action="{% url 'Signup' %}" method="post">
+            {% csrf_token %}
+            <h1>Sign Up</h1>
+
+            <!-- Username -->
+            <div class="input-box">
+                {{ form.username }}
+                <span class="material-icons">person</span>
+            </div>
+            {% if form.username.errors %}
+                <small class="text-danger">{{ form.username.errors }}</small>
+            {% endif %}
+
+            <!-- Email -->
+            <div class="input-box">
+                {{ form.email }}
+                <span class="material-icons">email</span>
+            </div>
+            {% if form.email.errors %}
+                <small class="text-danger">{{ form.email.errors }}</small>
+            {% endif %}
+
+            <!-- Phone Number -->
+            <div class="input-box">
+                {{ form.phone }}
+                <span class="material-icons">phone</span>
+            </div>
+            {% if form.phone.errors %}
+                <small class="text-danger">{{ form.phone.errors }}</small>
+            {% endif %}
+
+            <!-- Password -->
+            <div class="input-box">
+                {{ form.password1 }}
+                <span class="material-icons">lock</span>
+            </div>
+            {% if form.password1.errors %}
+                <small class="text-danger">{{ form.password1.errors }}</small>
+            {% endif %}
+
+            <!-- Confirm Password -->
+            <div class="input-box">
+                {{ form.password2 }}
+                <span class="material-icons">lock</span>
+            </div>
+            {% if form.password2.errors %}
+                <small class="text-danger">{{ form.password2.errors }}</small>
+            {% endif %}
+
+            <!-- Submit -->
+            <button type="submit" class="btn">Create Account</button>
+
+            <div class="register-link">
+                <p>Already have an account? <a href="{% url 'Login' %}">Login</a></p>
+            </div>
+
+            <!-- Non-field errors -->
+            {% if form.non_field_errors %}
+                <div class="text-danger mt-3">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock content %}

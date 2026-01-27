@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+{% block body_class %}profile-page{% endblock %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<header class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <div class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </div>
+</header>
+
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center">
+
+        <div class="profile-card text-center">
+    
+            <!-- Avatar -->
+            {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" class="profile-avatar">
+            {% else %}
+                <div class="profile-avatar placeholder"></div>
+            {% endif %}
+    
+            <!-- Username -->
+            <h3 class="fw-bold mt-2 username-color">
+                {{ user.username }}
+    
+                <span class="badge bg-success ms-2">
+                    {% comment %} {{ user.points.balance }} pts {% endcomment %}
+                     20 pts
+                </span>
+            </h3>
+            <div class="profile-meta">
+                <div>{{ user.email }}</div>
+                <div>{{ user.profile.phone }}</div>
+            </div>
+    
+            <!-- Menu -->
+            <ul class="profile-menu mt-4 text-start">
+
+                <li>
+                    <a href="{% url 'edit_profile' %}">
+                        <div class="menu-left">
+                            <span class="material-icons menu-icon">edit</span>
+                            <span>Edit Profile</span>
+                        </div>
+                
+                        <span class="material-icons arrow">chevron_right</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="#">
+                        <div class="menu-left">
+                            <span class="material-icons menu-icon">menu_book</span>
+                            <span>View Uploaded Books</span>
+                        </div>
+                
+                        <span class="material-icons arrow">chevron_right</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="#">
+                        <div class="menu-left">
+                            <span class="material-icons menu-icon">schedule</span>
+                            <span>View Requested Books</span>
+                        </div>
+                
+                        <span class="material-icons arrow">chevron_right</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="#">
+                        <div class="menu-left">
+                            <span class="material-icons menu-icon">notifications</span>
+                            <span>View Request Notifications</span>
+                        </div>
+                
+                        <span class="material-icons arrow">chevron_right</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="#">
+                        <div class="menu-left">
+                            <span class="material-icons menu-icon">sync_alt</span>
+                            <span>View Exchanged Books</span>
+                        </div>
+                
+                        <span class="material-icons arrow">chevron_right</span>
+                    </a>
+                </li>
+            
+                <li class="logout">
+                    <a href="{% url 'Logout' %}">
+                        <div class="menu-left">
+                            <span class="material-icons menu-icon">logout</span>
+                            <span>Logout</span>
+                        </div>
+                
+                        <span class="material-icons arrow red">chevron_right</span>
+                    </a>
+                </li>
+            
+            </ul>
+        </div>
+
+</div>
+
+{% endblock %}
