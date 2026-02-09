@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block body_class %}edit-books-page{% endblock %}
+
+{% block content %}
+<header class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <div class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </div>
+    <div class="header-actions">
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="profile-icon">
+                <span class="material-icons">account_circle</span>
+            </a>
+
+            <a href="{% url 'Logout' %}" class="btn login-btn">
+                Logout
+            </a>
+        {% endif %}
+    </div>
+</header>
+
+<div class="upload-book-wrapper">
+
+    <div class="card upload-book-card shadow-lg">
+
+        <div class="card-body">
+
+            <h3 class="text-center mb-4">Edit Book</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">{{ form.title }}</div>
+                <div class="mb-3">{{ form.author }}</div>
+                <div class="mb-3">{{ form.description }}</div>
+                <div class="mb-3">{{ form.isbn }}</div>
+                <div class="mb-3">{{ form.category }}</div>
+                <div class="mb-3 d-none" id="custom-category">{{ form.custom_category }}</div>
+                <div class="mb-3">{{ form.genre }}</div>
+                <div class="mb-3 d-none" id="custom-genre">{{ form.custom_genre }}</div>
+                <div class="mb-3">{{ form.language }}</div>
+                <div class="mb-3">{{ form.location }}</div>
+                <div class="mb-3">{{ form.condition }}</div>
+                <div class="mb-3">{{ form.price }}</div>
+                {% comment %} <div class="mb-3">
+                    <label class="form-label text-muted">Add cover image</label><br>
+                    {{ form.cover_image }}
+                </div> {% endcomment %}
+                <div class="mb-3">
+                    <label class="form-label text-muted">Add cover image</label><br>
+                    {{ form.cover_image }}
+                </div>                
+
+                <img id="preview" class="mt-2 w-100 mb-2 rounded" style="display:none;max-height:250px;object-fit:contain;">
+
+                <button type="submit" class="btn btn-success w-100">
+                    Save Changes
+                </button>
+
+            </form>
+
+            {% if form.errors %}
+                <div class="alert alert-danger mt-3">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

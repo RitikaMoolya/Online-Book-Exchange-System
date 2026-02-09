@@ -1,5 +1,8 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import timedelta
 
 #Category
 class Category(models.Model):
@@ -29,7 +32,7 @@ class Book(models.Model):
 
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, db_index=True)
 
     owner = models.ForeignKey(
         User,
@@ -37,6 +40,12 @@ class Book(models.Model):
         related_name='books'
     )
 
+    price = models.DecimalField(
+        max_digits=8,
+        decimal_places=2
+    )
+
+    location = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     isbn = models.CharField(max_length=13, blank=True)
 
@@ -72,7 +81,15 @@ class Inventory(models.Model):
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='available'
+        default='available',
+        db_index=True
+    )
+
+    locked_exchange = models.ForeignKey(
+        "ExchangeRequest",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
     )
 
     location = models.CharField(max_length=100)
@@ -107,27 +124,90 @@ class Wishlist(models.Model):
 
 #ExchangeRequest
 class ExchangeRequest(models.Model):
+
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
         ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+        ('expired', 'Expired'),
     ]
 
-    requester = models.ForeignKey(User, on_delete=models.CASCADE)
+    requester = models.ForeignKey(User, related_name="sent_requests", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name="received_requests", on_delete=models.CASCADE)
+
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     expected_book = models.ForeignKey(
         Book,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         related_name='expected_for'
     )
 
+    # requester intent
+    requester_wants_cash = models.BooleanField(default=False)
+
+    # owner counter
+    is_cash = models.BooleanField(default=False)
+    cash_amount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+
+    requester_confirmed = models.BooleanField(default=False)
+    owner_confirmed = models.BooleanField(default=False)
+
+    expires_at = models.DateTimeField(null=True, blank=True)
+    rejected_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="rejected_requests"
+    )
+
+    reject_reason = models.TextField(blank=True, null=True)
+
+    cancel_reason = models.TextField(blank=True)
+    cancelled_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name="cancelled")
+
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
-    message = models.TextField(blank=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+
+        if not self.pk:
+            self.expires_at = timezone.now() + timedelta(hours=48)
+
+        super().save(*args, **kwargs)
+
+        if self.status == "completed":
+            Inventory.objects.filter(book=self.book).update(status="exchanged", locked_exchange=None)
+
+            if self.expected_book:
+                Inventory.objects.filter(book=self.expected_book).update(status="exchanged", locked_exchange=None)
+
+        if self.status in ["cancelled","rejected","expired"]:
+            Inventory.objects.filter(book=self.book).update(status="available", locked_exchange=None)
+
+            if self.expected_book:
+                Inventory.objects.filter(book=self.expected_book).update(status="available", locked_exchange=None)
+
+# class Notification(models.Model):
+
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
+#     exchange = models.ForeignKey(ExchangeRequest, on_delete=models.CASCADE)
+
+#     message = models.CharField(max_length=255)
+
+#     is_read = models.BooleanField(default=False)
+
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return self.message
+
+
 
 

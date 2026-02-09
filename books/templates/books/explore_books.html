@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block body_class %}books-page{% endblock %}
+{% block title %}Explore Books{% endblock %}
+
+{% block content %}
+<header class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <div class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </div>
+    <div class="header-actions">
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="profile-icon">
+                <span class="material-icons">account_circle</span>
+            </a>
+
+            <a href="{% url 'Logout' %}" class="btn login-btn">
+                Logout
+            </a>
+        {% endif %}
+    </div>
+</header>
+
+<div class="explore-books-page">
+
+    <!-- Top Controls -->
+    <div class="container mb-4">
+
+        <form method="GET" class="row g-3 align-items-center">
+
+            <!-- Category -->
+            <div class="col-auto">
+                <select class="form-select filter-select" name="category">
+                    <option>Category</option>
+                </select>
+            </div>
+
+            <!-- Genre -->
+            <div class="col-auto">
+                <select class="form-select filter-select" name="genre">
+                    <option>Genre</option>
+                </select>
+            </div>
+
+            <!-- Search -->
+            <div class="col">
+                <div class="search-wrapper">
+                    <input type="text" name="q" class="form-control search-input"
+                           placeholder="Search books...">
+                    <span class="material-icons search-icon">search</span>
+                </div>
+            </div>
+
+            <!-- Upload -->
+            <div class="col-auto">
+                <a href="{% url 'upload_book' %}" class="upload-btn">Upload Book</a>
+            </div>
+
+            <!-- Filter Button -->
+            <div class="col-12">
+                <button class="filter-btn mt-2">Filter</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Books -->
+    <div class="container">
+        <div class="row g-4">
+    
+            {% for book in books %}
+            <div class="col-12 col-md-4 col-lg-3">
+    
+                <a href="{% url 'book_detail' book.slug %}" class="book-link">
+    
+                    <div class="book-card">
+    
+                        <div class="book-cover">
+                            {% if book.cover_image %}
+                                <img src="{{ book.cover_image.url }}">
+                            {% else %}
+                                <img src="/media/images/book-cover.png">
+                            {% endif %}
+                        </div>
+    
+                        <div class="book-info">
+                            <strong>Book title: {{ book.title }}</strong>
+                            <div>Author: {{ book.author }}</div>
+                            <div>Condition: {{ book.condition }}</div>
+                            <div>Genre: {{ book.genre }}</div>
+                            <div>Category: {{ book.category }}</div>
+                        </div>
+    
+                    </div>
+    
+                </a>
+    
+            </div>
+            {% empty %}
+                <p class="text-center mt-5">No books uploaded yet.</p>
+            {% endfor %}
+    
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}

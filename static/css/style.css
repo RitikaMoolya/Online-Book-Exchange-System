@@ -550,26 +550,52 @@ body.login-page {
     position: fixed;
     top: 0;
     left: 0;
-    height: 60px; /* Reduced height */
+    height: 60px;
     width: 100%;
     background: white;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     z-index: 1100;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 30px;
+    padding: 0 20px;
 }
 
 .back-arrow {
-    position: absolute;
-    left: 20px;
+    /* position: absolute; */
+    /* left: 20px; */
+    display: flex;
+    align-items: center;
     color: #333;
     text-decoration: none;
 }
 
+/* .login-logo img {
+    height: 50px;  
+} */
+
+.login-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .login-logo img {
-    height: 50px; /* Smaller logo for smaller header */
+    height: 42px;
+}
+
+/* .header-actions {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+} */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 /* 4. The White Login Card (Image 1 Style) */
@@ -900,3 +926,483 @@ body.profile-edit-page footer {
     background-color: #4a9441;
     transform: translateY(-1px);
 }
+
+/* ===== Explore Books ===== */
+
+.books-page nav,
+.books-page footer {
+    display: none !important;
+}
+
+.books-page {
+    background-image: url("/media/images/explore_books_bg.jpg");
+    /* background: #E3ECEF; */
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Dropdowns */
+
+.filter-select {
+    border-radius: 6px;
+    min-width: 130px;
+}
+
+/* Search */
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-input {
+    border-radius: 999px;
+    padding: 14px 45px 14px 20px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+/* Buttons */
+
+.upload-btn {
+    text-decoration: none;
+    background: #4caf50;
+    color: white;
+    border-radius: 999px;
+    padding: 10px 25px;
+    font-weight: 600;
+}
+
+.upload-btn:hover {
+    background: #43a047;
+    color: white;
+}
+
+.filter-btn {
+    background: #153c2c;
+    color: white;
+    border-radius: 14px;
+    padding: 8px 25px;
+}
+
+.filter-btn:hover {
+    background: #081f13;
+    color: white;
+}
+
+.book-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    transition: .2s ease;
+    overflow: hidden;
+    width: 200px;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+/* GRAY COVER AREA */
+
+.book-cover {
+    background: #C0C0C0;
+    height: 250px;
+    padding: 8px;
+}
+
+/* IMAGE ITSELF */
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        /* fills like Amazon */
+    border-radius: 10px;
+    display: block;
+}
+
+/* INFO */
+
+.book-info {
+    padding: 10px 12px 14px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #08101b;
+}
+
+.book-info {
+    /* margin-top: auto;
+    line-height: 1.5; */
+    color: #08101b;
+    /* padding-top: 10px; */
+    padding: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.book-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.upload-book-page nav,
+.upload-book-page footer {
+    display: none;
+}
+
+.upload-book-page{
+    background: linear-gradient(135deg, #a9ccab 0%, #d9e8d3 50%, #a9ccab 100%);
+}
+
+.upload-book-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.upload-book-card {
+    width: 430px;
+    border-radius: 20px !important;
+    padding: 10px;
+}
+
+.upload-book-card input,
+.upload-book-card textarea,
+.upload-book-card select {
+    border-radius: 10px;
+}
+
+.upload-book-card input[type="file"] {
+    padding: 8px;
+}
+
+/* Grey when placeholder selected */
+.placeholder-select {
+    color: #54595f;
+}
+
+/* Turn black once real option selected */
+.placeholder-select option:not([value=""]) {
+    color: #000;
+}
+
+.placeholder-select:focus {
+    color: #000;
+}
+
+/* Keep placeholder grey */
+.placeholder-select option[value=""] {
+    color: #54595f;
+}
+
+.books-detail-page nav,
+.books-detail-page footer {
+    display: none;
+}
+
+.books-detail-page{
+    min-height: 100vh;
+    /* background-color: #63d471;
+    background-image: linear-gradient(315deg, #63d471 0%, #233329 74%); */
+    background: #B8E5B8;
+}
+
+.exchange-badge {
+    position: static;   
+    margin-top: 6px
+}
+
+.exchange-badge .badge {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    border-radius: 20px;
+}
+
+.request-btn,
+.confirm-btn{
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+/* Request */
+.request-btn{
+    background:#070941;
+    color:white;
+}
+
+.request-btn:hover{
+    background:#0b1220;
+    transform: translateY(-3px);
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+
+/* Confirm */
+.confirm-btn{
+    background:#4ba459;
+    color:white;
+}
+
+.confirm-btn:hover{
+    background:#2f7d3a;
+    transform: translateY(-3px);
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+
+.books-detail-page .card{
+    border-radius:14px;
+    padding:2rem;
+}
+
+.books-detail-page .container{
+    padding-bottom:20px;
+}
+
+.my-books-page nav,
+.my-books-page footer {
+    display: none;
+}
+
+.my-books-page{
+    /* background: #91AE91; */
+    background: #CBEBD0;
+}
+
+.my-books-page .book-info {
+    text-align: center;
+}
+
+/* ===============================
+   Exchange Requests UI
+================================ */
+
+.notifications-page nav,
+.notifications-page footer {
+    display: none;
+}
+
+.notifications-page{
+    /* background: #d9e2b1; */
+    background: #CBEBD0;
+}
+
+/* Card hover */
+.card-bg{
+    border-radius: 14px;
+    border: 1px solid #eee;
+    /* padding: 16px 18px; */
+    background-color: #fcf5f5;
+    overflow: hidden;
+    transition:.3s ease;
+}
+
+.card-bg:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+/* Divider */
+.divider{
+    height:1px;
+    background:#e5e5e5;
+    margin:15px 0;
+}
+
+/* Animated buttons */
+.btn{
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover{
+    transform: translateY(-2px);
+}
+
+/* Requester avatar */
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* Book thumbnails */
+.book-thumb{
+    width:60px;
+    height:90px;
+    object-fit:cover;
+    border-radius:6px;
+}
+
+/* Collapse animation smoothing */
+.collapse{
+    transition:.3s ease;
+}
+
+.exchanged-books-page nav,
+.exchanged-books-page footer,
+.requested-books-page nav,
+.requested-books-page footer{
+    display: none;
+}
+.exchanged-books-page,
+.requested-books-page{
+    background: #CBEBD0;
+}
+
+.page-container {
+    max-width: 100%;
+    padding: 20px 30px;
+}
+
+.page-title {
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Card */
+
+.exchange-card {
+    background: #fcf5f5;
+    border-radius: 14px;
+    border: 1px solid #eee;
+    padding: 16px 18px;
+    transition: all 0.25s ease;
+}
+
+.exchange-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
+
+/* Header */
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.exchange-title,
+.card-header h4 {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+.partner,
+.exchange-meta {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Divider */
+
+.exchange-divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 10px 0;
+}
+
+/* Small badge */
+
+.exchange-badge-sm {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Status colors */
+
+.exchange-badge-sm.completed {
+    background: #1c8c52;
+    color: #fff;
+}
+
+.exchange-badge-sm.pending {
+    background: #ffc107;
+    color: #000;
+}
+
+.exchange-badge-sm.approved {
+    background: #0dcaf0;
+    color: #fff;
+}
+
+.exchange-badge-sm.rejected {
+    background: #dc3545;
+    color: #fff;
+}
+
+/* Body */
+
+.card-body {
+    margin-top: 8px;
+}
+
+.exchange-contact {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Button */
+
+.primary-btn {
+    display: inline-block;
+    margin-top: 12px;
+    border: 1px solid #0d6efd;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #0d6efd;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    background: #0d6efd;
+    color: white;
+}
+
+/* Empty */
+
+.empty-text {
+    text-align: center;
+    color: #777;
+    margin-top: 50px;
+}
+
+.edit-books-page nav,
+.edit-books-page footer{
+    display: none;
+}
+
+.edit-books-page{
+    background: linear-gradient(135deg, #a9ccab 0%, #d9e8d3 50%, #a9ccab 100%);
+}
+
+/* input[type="file"] {
+    width: 100%;
+}
+
+.clearable-file-input {
+    font-size: 0.9rem;
+} */

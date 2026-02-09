@@ -1,0 +1,132 @@
+{% extends "layout.html" %}
+{% block body_class %}books-detail-page{% endblock %}
+
+{% block content %}
+<header class="login-header">
+    <a href="{% url 'Home' %}" class="back-arrow">
+        <span class="material-icons">arrow_back</span>
+    </a>
+
+    <div class="login-logo">
+        <img src="/media/images/website_logo.png" alt="BookLoop">
+    </div>
+    <div class="header-actions">
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="profile-icon">
+                <span class="material-icons">account_circle</span>
+            </a>
+
+            <a href="{% url 'Logout' %}" class="btn login-btn">
+                Logout
+            </a>
+        {% endif %}
+    </div>
+</header>
+
+<div class="container my-4 pb-4">
+
+    <div class="card shadow-lg p-4 position-relative">
+
+        <div class="row g-4 align-items-center">
+
+            <!-- Cover -->
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}"
+                        class="img-fluid rounded shadow-sm"
+                        style="max-height:420px;object-fit:contain;">
+                {% else %}
+                    <div class="border p-5">No Image</div>
+                {% endif %}
+            </div>
+
+            <!-- Details -->
+            <div class="col-md-8">
+
+                <div class="mb-2">
+                    <h2 class="fw-bold mb-1">{{ book.title }}</h2>
+                
+                    {% comment %} {% if exchange %}
+                        <span class="badge exchange-badge d-inline-block
+                        {% if exchange.status == 'completed' %} bg-success
+                        {% elif exchange.status == 'approved' %} bg-primary
+                        {% else %} bg-warning text-dark{% endif %}"
+                        data-exchange-id="{{ exchange.id }}">
+                            {{ exchange.status|capfirst }}
+                        </span>
+                    {% endif %} {% endcomment %}
+                </div>
+
+                {% if user != book.owner %}
+                    <p class="text-muted">
+                        Uploaded by: {{ book.owner.username }}
+                    </p>
+                {% endif %}
+
+                {% if exchange and exchange.status == "completed" and user == exchange.requester %}
+                    <p>
+                        <strong>Contact:</strong>
+                        {{ book.owner.email }} | {{ book.owner.profile.phone }}
+                    </p>
+                {% endif %}
+
+                <hr>
+                
+                <p><strong>Author:</strong> {{ book.author }}</p>
+                <p><strong>Description:</strong> {{ book.description }}</p>
+                <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+                <p><strong>Language:</strong> {{ book.language }}</p>
+                <p><strong>Condition:</strong> {{ book.get_condition_display }}</p>
+                <p><strong>Location:</strong> {{ book.location }}</p>
+                <p><strong>Genre:</strong> {{ book.genre }}</p>
+                <p><strong>Category:</strong> {{ book.category }}</p>
+                {% if book.price %}<p><strong>Price:</strong> ₹{{ book.price }}</p>{% endif %}
+
+                <!-- Buttons -->
+                <div class="mt-4 d-flex gap-3">
+
+                    {% if user != book.owner %}
+
+                        {% if exchange and exchange.status == "completed" %}
+                            <p class="text-success fw-semibold">
+                                Exchange completed ✔
+                            </p>
+                            <a href="{% url 'view_requested_books' %}" class="btn btn-outline-primary btn-sm">
+                                View My Requests
+                            </a>
+
+                        {% elif exchange and exchange.status in "pending approved" %}
+                            <p class="text-muted">
+                                Request already sent ({{ exchange.status|title }})
+                            </p>
+                            <a href="{% url 'view_requested_books' %}" class="btn btn-outline-primary btn-sm">
+                                View My Requests
+                            </a>
+                            
+                        {% else %}
+                            {# no exchange OR cancelled OR rejected #}
+
+                            <a href="{% url 'request_exchange' book.slug %}" class="request-btn">
+                                Request Exchange
+                            </a>
+
+                            <a href="{% url 'request_exchange' book.slug %}?cash=1"
+                            class="btn btn-success">
+                                Buy with Cash ₹{{ book.price }}
+                            </a>
+
+                        {% endif %}
+
+                    {% endif %}
+
+                </div>    
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

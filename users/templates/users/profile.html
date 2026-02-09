@@ -29,10 +29,10 @@
             <h3 class="fw-bold mt-2 username-color">
                 {{ user.username }}
     
-                <span class="badge bg-success ms-2">
-                    {% comment %} {{ user.points.balance }} pts {% endcomment %}
+                {% comment %} <span class="badge bg-success ms-2">
+                    {% comment %} {{ user.points.balance }} pts 
                      20 pts
-                </span>
+                </span> {% endcomment %}
             </h3>
             <div class="profile-meta">
                 <div>{{ user.email }}</div>
@@ -54,7 +54,7 @@
                 </li>
             
                 <li>
-                    <a href="#">
+                    <a href="{% url 'my_uploaded_books' %}">
                         <div class="menu-left">
                             <span class="material-icons menu-icon">menu_book</span>
                             <span>View Uploaded Books</span>
@@ -65,7 +65,7 @@
                 </li>
             
                 <li>
-                    <a href="#">
+                    <a href="{% url 'view_requested_books' %}">
                         <div class="menu-left">
                             <span class="material-icons menu-icon">schedule</span>
                             <span>View Requested Books</span>
@@ -76,7 +76,7 @@
                 </li>
             
                 <li>
-                    <a href="#">
+                    <a href="{% url 'notifications' %}">
                         <div class="menu-left">
                             <span class="material-icons menu-icon">notifications</span>
                             <span>View Request Notifications</span>
@@ -87,7 +87,7 @@
                 </li>
             
                 <li>
-                    <a href="#">
+                    <a href="{% url 'view_exchanged_books' %}">
                         <div class="menu-left">
                             <span class="material-icons menu-icon">sync_alt</span>
                             <span>View Exchanged Books</span>
