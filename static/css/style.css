@@ -21,7 +21,7 @@ html {
 body{
     min-height: 100vh;
     padding-top: 95px;
-    background-color: var(--body-color);
+    /* background-color: var(--body-color); */
 }
 
 nav {
@@ -141,7 +141,8 @@ nav .nav-bar {
 }
 
 .main-bg{
-    background: #faf8f1;;
+    /* background: #faf8f1; */
+    background: #EBF4DD;
 }
 
 .main {
@@ -188,24 +189,25 @@ nav .nav-bar {
     scroll-margin-top: 120px; /* navbar height + spacing */
 }
 
-.services-content{
-    margin-top: 15px;
-    /* padding-bottom: 200px; */
-}
+/* .services-content{
+    /* margin-top: 15px; 
+    /* padding-bottom: 200px; 
+} */
 
 .services-content .card {
     border-radius: 14px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #F1E9E9;
 }
 
 .services-content .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 15px rgba(8, 16, 27, 0.2), 0 25px 50px rgba(8, 16, 27, 0.3);
 }
 
-.services-content .card-bg{
+/* .services-content .card-bg{
     background-color: #08101b;
-}
+} */
 
 .services-content .material-symbols-outlined {
     font-size: 28px; /* Adjust size as needed */
@@ -222,6 +224,16 @@ nav .nav-bar {
 .category-slider {
     padding: 70px 0;
     margin-top: 50px;
+    margin-bottom: 60px;
+}
+
+.category-link {
+    transition: transform 0.2s ease;
+    display: block;
+}
+
+.category-link:hover {
+    transform: scale(1.05);
 }
 
 .category-track {
@@ -230,8 +242,9 @@ nav .nav-bar {
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 30px 80px;
-    border: 1.5px solid #222;
+    border: 6px solid #222;
     border-radius: 120px;
+    align-items: center
 }
 
 .category-track::-webkit-scrollbar {
@@ -239,13 +252,15 @@ nav .nav-bar {
 }
 
 .category-item {
-    min-width: 200px;
-    text-align: center;
+    /* min-width: 200px; */
+    min-width: 160px; /* Reduced slightly to fit better */
+    cursor: pointer;
+    /* text-align: center; */
 }
 
 .category-item h5 {
     margin-top: 15px;
-    font-weight: 600;
+    /* font-weight: 600; */
 }
 
 .category-item p {
@@ -283,10 +298,100 @@ nav .nav-bar {
 .slider-btn.left { left: -10px; }
 .slider-btn.right { right: -10px; }
 
+/* How It Works Styling */
+/* .how-it-works{
+    margin-bottom: 60px;
+} */
+.how-it-works-bg {
+    /* background-color: #f8faff; Light blue tint from screenshot */
+   /* Horizontal Gradient */
+    /* background: linear-gradient(to right, #016B61, #70B2B2, #9ECFD4, #E5E9C5); */
+    /* background: #EEF5FF; */
+    background: #faf8f1;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.how-it-works-bg:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(8, 16, 27, 0.1), 0 10px 20px rgba(8, 16, 27, 0.15);
+}
+
+.process-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    position: relative;
+    border: 1px solid #eef2f7;
+}
+
+/* .process-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 10px 15px rgba(8, 16, 27, 0.2), 0 25px 50px rgba(8, 16, 27, 0.3);
+} */
+
+.step-number {
+    position: absolute;
+    right: 20px;
+    top: 4px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #e9ecef; /* Faded number effect */
+    user-select: none;
+}
+
+.step-content h6 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 5px;
+    /* display: flex; */
+    /* align-items: center; */
+    gap: 10px;
+}
+
+.step-content p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.process-title {
+    color: #264978;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Decorative Underline Style */
+.section-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px; /* Length of the underline */
+    height: 2.5px;  /* Thickness of the underline */
+    background-color: #2e7d32; /* Match your theme's green or blue */
+    border-radius: 2px;
+}
+
 .footer-section {
     background: #08101b; 
     color: #ffffff; 
-    /* padding-top: 80px; */
+    padding: 15px 0 0 0;
 }
 
 .footer-text {
@@ -297,7 +402,8 @@ nav .nav-bar {
 
 .footer-title {
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    color: #ffffff;
 }
 
 .footer-links {
@@ -311,7 +417,7 @@ nav .nav-bar {
 
 .footer-links a {
     color: #cfd8dc;
-    text-decoration: none;
+    /* text-decoration: none; */
     transition: color 0.3s;
 }
 
@@ -319,7 +425,7 @@ nav .nav-bar {
     color: #5bb450;
 }
 
-.newsletter-box {
+/* .newsletter-box {
     display: flex;
     background: #ffffff;
     border-radius: 50px;
@@ -338,13 +444,59 @@ nav .nav-bar {
     border: none;
     padding: 0 18px;
     color: #ffffff;
-}
+} */
 
 /* .social-icons {
     display: flex;
     gap: 12px;
     margin-top: 10px;
 } */
+
+/* --- New Underline Form Styles (Screenshot 1 Style) --- */
+.footer-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #cfd8dc; /* Underline effect */
+    color: #ffffff;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s;
+    font-size: 14px;
+}
+
+/* Update your CSS to target the textarea specifically */
+textarea.footer-input {
+    resize: none;         /* Removes the drag handle in the corner */
+    overflow: hidden;     /* Removes the scroll bar */
+    display: block;       /* Ensures it behaves as a block element */
+}
+
+.footer-input:focus {
+    border-bottom: 1px solid #5bb450; /* Green highlight on focus */
+}
+
+.footer-input::placeholder {
+    color: #cfd8dc;
+    opacity: 0.8;
+}
+
+/* Reusing your button style but making it outlined like the screenshot */
+.footer-btn {
+    background: transparent;
+    border: 1.5px solid #5bb450;
+    color: #5bb450;
+    padding: 8px 40px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-btn:hover {
+    background: #5bb450;
+    color: #ffffff;
+}
 
 .social-icons a {
     width: 38px;
@@ -367,6 +519,18 @@ nav .nav-bar {
 .footer-bottom {
     background: rgba(0,0,0,0.4);
     font-size: 14px;
+}
+
+/* Change the white background of autofill to match your footer */
+input.footer-input:-webkit-autofill,
+input.footer-input:-webkit-autofill:hover, 
+input.footer-input:-webkit-autofill:focus,
+textarea.footer-input:-webkit-autofill,
+textarea.footer-input:-webkit-autofill:hover,
+textarea.footer-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff; /* Keeps text white */
+    -webkit-box-shadow: #08101b inset; /* Matches your footer background color */
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 /* .login-form{
@@ -941,61 +1105,127 @@ body.profile-edit-page footer {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    /* padding-bottom: 20px; */
+}
+
+.explore-books-page{
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 /* Dropdowns */
 
-.filter-select {
+/* Container for the form */
+.custom-filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Row 1: Keeps everything in a straight line */
+.top-controls-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap; /* Prevents wrapping to next line */
+    width: 100%;
+}
+
+/* 3 Dropdown Filters */
+.custom-filter-select {
+    width: 140px !important; /* Fixed width to match screenshot */
+    height: 45px;
+    border: 1px solid #ced4da;
     border-radius: 6px;
-    min-width: 130px;
+    flex-shrink: 0;
 }
 
-/* Search */
-
-.search-wrapper {
+/* Search Box Container - Flexible to fill space */
+.custom-search-wrapper {
+    flex-grow: 1;
     position: relative;
+    min-width: 150px;
 }
 
-.search-input {
-    border-radius: 999px;
-    padding: 14px 45px 14px 20px;
+.custom-search-input {
+    width: 100%;
+    height: 45px;
+    border-radius: 10px !important;
+    padding-right: 45px;
+    border: 1px solid #ced4da;
+}
+
+/* Search Icon Button */
+.search-icon-btn {
+    position: absolute;
+    right: 12px;
+    top: 60%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .search-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
     color: #999;
 }
 
-/* Buttons */
+/* Row 2: Filter Button Alignment */
+.bottom-controls-line {
+    display: flex;
+    justify-content: flex-start;
+}
 
+/* Button Styles - COLORS PRESERVED */
 .upload-btn {
     text-decoration: none;
     background: #4caf50;
     color: white;
-    border-radius: 999px;
-    padding: 10px 25px;
+    border-radius: 99px;
+    padding: 10px 20px;
     font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
 .upload-btn:hover {
     background: #43a047;
     color: white;
+    transform: translateY(-3px);
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
 }
 
 .filter-btn {
     background: #153c2c;
     color: white;
-    border-radius: 14px;
-    padding: 8px 25px;
+    border-radius: 20px;
+    padding: 8px 30px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
 .filter-btn:hover {
-    background: #081f13;
+    background: #0c281c;
     color: white;
+    transform: translateY(-3px);
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
 }
+
+/* Background/Page Styles */
+/* .books-page {
+    background-image: url("/media/images/explore_books_bg.jpg");
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+} */
 
 .book-card {
     background: white;
@@ -1003,7 +1233,10 @@ body.profile-edit-page footer {
     box-shadow: 0 10px 25px rgba(0,0,0,.08);
     transition: .2s ease;
     overflow: hidden;
-    width: 200px;
+    /* Remove fixed width: 200px; */
+    width: 100%;       /* Take up the full width of the wrapper */
+    max-width: 200px;  /* Control the size here instead */
+    margin: 0 auto;    /* Centers the card if the column is wider */
 }
 
 .book-card:hover {
@@ -1047,9 +1280,12 @@ body.profile-edit-page footer {
     line-height: 1.5;
 }
 
-.book-link{
+.book-link {
     text-decoration: none;
     color: inherit;
+    display: inline-block; /* Prevents the link from stretching to 100% of the column */
+    width: 100%;           /* Ensures the hit area matches the card inside */
+    text-align: center;    /* Optional: helps center the card hit-box */
 }
 
 .upload-book-page nav,
@@ -1079,6 +1315,18 @@ body.profile-edit-page footer {
 .upload-book-card textarea,
 .upload-book-card select {
     border-radius: 10px;
+}
+
+.upload-book-card textarea {
+    resize: none;             /* Prevents manual stretching */
+    min-height: 120px;        /* Keeps a consistent size */
+    -ms-overflow-style: none;  /* Hides scrollbar in Internet Explorer/Edge */
+    scrollbar-width: none;   /* Adjust this to provide enough space for text */
+    word-wrap: break-word;
+}
+
+.upload-book-card textarea::-webkit-scrollbar {
+    display: none;
 }
 
 .upload-book-card input[type="file"] {
@@ -1116,7 +1364,7 @@ body.profile-edit-page footer {
     background: #B8E5B8;
 }
 
-.exchange-badge {
+/* .exchange-badge {
     position: static;   
     margin-top: 6px
 }
@@ -1125,7 +1373,7 @@ body.profile-edit-page footer {
     padding: 8px 14px;
     font-size: 0.85rem;
     border-radius: 20px;
-}
+} */
 
 .request-btn,
 .confirm-btn{
@@ -1177,10 +1425,10 @@ body.profile-edit-page footer {
 .my-books-page nav,
 .my-books-page footer {
     display: none;
-}
+} 
 
 .my-books-page{
-    /* background: #91AE91; */
+    /* background: #91AE91;  */
     background: #CBEBD0;
 }
 
@@ -1241,6 +1489,15 @@ body.profile-edit-page footer {
     object-fit:cover;
 }
 
+.placeholder-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#f1f1f1;
+    border:1px solid #ddd;
+}
+
+
 /* Book thumbnails */
 .book-thumb{
     width:60px;
@@ -1254,7 +1511,7 @@ body.profile-edit-page footer {
     transition:.3s ease;
 }
 
-.exchanged-books-page nav,
+/* .exchanged-books-page nav,
 .exchanged-books-page footer,
 .requested-books-page nav,
 .requested-books-page footer{
@@ -1275,7 +1532,7 @@ body.profile-edit-page footer {
     font-weight: 600;
 }
 
-/* Card */
+Card 
 
 .exchange-card {
     background: #fcf5f5;
@@ -1290,7 +1547,7 @@ body.profile-edit-page footer {
     box-shadow: 0 8px 18px rgba(0,0,0,.08);
 }
 
-/* Header */
+Header
 
 .card-header {
     display: flex;
@@ -1313,7 +1570,7 @@ body.profile-edit-page footer {
     margin-top: 4px;
 }
 
-/* Divider */
+ Divider 
 
 .exchange-divider {
     height: 1px;
@@ -1321,7 +1578,7 @@ body.profile-edit-page footer {
     margin: 10px 0;
 }
 
-/* Small badge */
+Small badge 
 
 .exchange-badge-sm {
     font-size: 12px;
@@ -1330,7 +1587,7 @@ body.profile-edit-page footer {
     font-weight: 500;
 }
 
-/* Status colors */
+Status colors 
 
 .exchange-badge-sm.completed {
     background: #1c8c52;
@@ -1352,7 +1609,7 @@ body.profile-edit-page footer {
     color: #fff;
 }
 
-/* Body */
+ Body 
 
 .card-body {
     margin-top: 8px;
@@ -1363,7 +1620,7 @@ body.profile-edit-page footer {
     color: #333;
 }
 
-/* Button */
+ Button 
 
 .primary-btn {
     display: inline-block;
@@ -1382,13 +1639,129 @@ body.profile-edit-page footer {
     color: white;
 }
 
-/* Empty */
+Empty 
 
 .empty-text {
     text-align: center;
     color: #777;
     margin-top: 50px;
+} */
+
+/* Hide navbar & footer */
+.exchanged-books-page nav,
+.exchanged-books-page footer,
+.requested-books-page nav,
+.requested-books-page footer {
+    display: none;
 }
+
+/* Page background */
+.exchanged-books-page,
+.requested-books-page {
+    background: #CBEBD0;
+}
+
+/* Card */
+.exchange-card {
+    background: #fcf5f5;
+    border-radius: 14px;
+    border: 1px solid #eee;
+    padding: 16px 18px;
+    transition: all 0.25s ease;
+}
+
+.exchange-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
+
+/* Titles & meta */
+.exchange-title {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+.exchange-meta {
+    font-size: 14px;
+    color: #666;
+}
+
+.exchange-contact {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Divider */
+.exchange-divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 12px 0;
+}
+
+/* Badge */
+.exchange-badge-sm {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Exchange books section */
+.exchange-books {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin: 12px 0;
+}
+
+.exchange-book {
+    text-align: center;
+    max-width: 120px;
+}
+
+.exchange-book img {
+    width: 80px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.exchange-book-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
+.exchange-book-label {
+    font-size: 12px;
+    color: #777;
+}
+
+.exchange-icon {
+    font-size: 20px;
+}
+
+/* Button */
+.primary-btn {
+    display: inline-block;
+    margin-top: 12px;
+    border: 1px solid #0d6efd;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #0d6efd;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    background: #0d6efd;
+    color: white;
+}
+
 
 .edit-books-page nav,
 .edit-books-page footer{
@@ -1406,3 +1779,20 @@ body.profile-edit-page footer {
 .clearable-file-input {
     font-size: 0.9rem;
 } */
+
+.contact-modal-custom {
+    background-color: #ECF4E8 !important; /* Light blue tint similar to your How It Works section */
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Optional: Style the header text to match your primary blue */
+.contact-modal-custom h5 {
+    color: #0056b3;
+}
+
+/* Optional: Make the backdrop darker for better focus */
+.modal-backdrop.show {
+    opacity: 0.7;
+}

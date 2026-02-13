@@ -167,3 +167,43 @@ setInterval(() => {
     });
 
 }, 4000);
+
+
+const footerForm = document.getElementById('footer-contact-form');
+const footerResult = document.getElementById('footer-form-result');
+
+footerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(footerForm);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+    footerResult.innerHTML = "Sending..."
+
+    fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                footerResult.className = "mt-2 small text-success";
+                footerResult.innerHTML = "Thank you! We'll be in touch.";
+            } else {
+                footerResult.className = "mt-2 small text-danger";
+                footerResult.innerHTML = json.message;
+            }
+        })
+        .catch(error => {
+            footerResult.innerHTML = "Something went wrong!";
+        })
+        .then(function() {
+            footerForm.reset();
+            setTimeout(() => {
+                footerResult.innerHTML = "";
+            }, 5000);
+        });
+});

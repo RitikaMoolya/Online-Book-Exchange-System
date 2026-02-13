@@ -7,7 +7,6 @@
     <a href="{% url 'Home' %}" class="back-arrow">
         <span class="material-icons">arrow_back</span>
     </a>
-
     <div class="login-logo">
         <img src="/media/images/website_logo.png" alt="BookLoop">
     </div>
@@ -16,68 +15,74 @@
             <a href="{% url 'profile' %}" class="profile-icon">
                 <span class="material-icons">account_circle</span>
             </a>
-
-            <a href="{% url 'Logout' %}" class="btn login-btn">
-                Logout
-            </a>
+            <a href="{% url 'Logout' %}" class="btn login-btn">Logout</a>
         {% endif %}
     </div>
 </header>
 
 <div class="explore-books-page">
-
-    <!-- Top Controls -->
     <div class="container mb-4">
-
-        <form method="GET" class="row g-3 align-items-center">
-
-            <!-- Category -->
-            <div class="col-auto">
-                <select class="form-select filter-select" name="category">
-                    <option>Category</option>
+        <form method="GET" class="custom-filter-form">
+            
+            <div class="top-controls-line">
+                
+                <select class="form-select custom-filter-select" name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        {% if category.name != "Others" %} 
+                            <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
-            </div>
 
-            <!-- Genre -->
-            <div class="col-auto">
-                <select class="form-select filter-select" name="genre">
-                    <option>Genre</option>
+                <select class="form-select custom-filter-select" name="genre">
+                    <option value="">All Genres</option>
+                    {% for genre in genres %}
+                        {% if genre.name != "Others" %} 
+                            <option value="{{ genre.id }}" {% if selected_genre == genre.id|stringformat:"s" %}selected{% endif %}>
+                                {{ genre.name }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
                 </select>
-            </div>
 
-            <!-- Search -->
-            <div class="col">
-                <div class="search-wrapper">
-                    <input type="text" name="q" class="form-control search-input"
-                           placeholder="Search books...">
-                    <span class="material-icons search-icon">search</span>
+                <select class="form-select custom-filter-select" name="location">
+                    <option value="">All Locations</option>
+                    {% for location in locations %}
+                        <option value="{{ location }}" {% if selected_location == location %}selected{% endif %}>
+                            {{ location }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <div class="custom-search-wrapper">
+                    <input type="text" name="q" value="{{ request.GET.q }}" 
+                           class="form-control custom-search-input" placeholder="Search books...">
+                    <button type="submit" class="search-icon-btn">
+                        <span class="material-icons search-icon">search</span>
+                    </button>
                 </div>
-            </div>
 
-            <!-- Upload -->
-            <div class="col-auto">
                 <a href="{% url 'upload_book' %}" class="upload-btn">Upload Book</a>
             </div>
 
-            <!-- Filter Button -->
-            <div class="col-12">
-                <button class="filter-btn mt-2">Filter</button>
+            <div class="bottom-controls-line">
+                <button type="submit" class="filter-btn">
+                    Filter 
+                </button>
             </div>
 
         </form>
     </div>
 
-    <!-- Books -->
     <div class="container">
         <div class="row g-4">
-    
             {% for book in books %}
             <div class="col-12 col-md-4 col-lg-3">
-    
                 <a href="{% url 'book_detail' book.slug %}" class="book-link">
-    
                     <div class="book-card">
-    
                         <div class="book-cover">
                             {% if book.cover_image %}
                                 <img src="{{ book.cover_image.url }}">
@@ -85,7 +90,6 @@
                                 <img src="/media/images/book-cover.png">
                             {% endif %}
                         </div>
-    
                         <div class="book-info">
                             <strong>Book title: {{ book.title }}</strong>
                             <div>Author: {{ book.author }}</div>
@@ -93,20 +97,13 @@
                             <div>Genre: {{ book.genre }}</div>
                             <div>Category: {{ book.category }}</div>
                         </div>
-    
                     </div>
-    
                 </a>
-    
             </div>
             {% empty %}
-                <p class="text-center mt-5">No books uploaded yet.</p>
+                <p class="text-center mt-5">No books found.</p>
             {% endfor %}
-    
         </div>
     </div>
-    
-
 </div>
-
 {% endblock %}

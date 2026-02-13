@@ -13,7 +13,7 @@
         <a href="{% url 'explore_books' %}" class="btn home-btn mt-5 d-inline-flex align-items-center gap-1">Explore Now <span class="material-symbols-outlined">chevron_forward</span></a>
     </div>
    </section>
-   <section id='categories' class="category-slider "> 
+   {% comment %} <section id='categories' class="category-slider "> 
     <div class="container position-relative">
   
       <!-- Left Arrow -->
@@ -74,11 +74,55 @@
       </button>
   
     </div>
-  </section>
+  </section> {% endcomment %}
+
+  <section id='categories' class="category-slider py-5"> 
+    <div class="container text-center">
+      <h2 class="fw-bold section-title">Explore Categories</h2>
+    <div class="container position-relative mt-4">
+        <button class="slider-btn left" onclick="scrollSlider(-1)">‹</button>
   
-   <section id="services" class="services-content py-5 text-center">
+        <div class="category-track d-flex gap-5 px-5 py-4 rounded-pill border" id="categoryTrack">
+            {% for category in categories %}
+                <a href="{% url 'explore_books' %}?category={{ category.id }}" class="category-link text-decoration-none text-dark">
+                    <div class="category-item text-center">
+                        <div class="icon-circle">
+                          <span class="material-symbols-outlined">
+                            {% if category.name == "Non-Fiction" %}psychology
+                            {% elif category.name == "Fantasy" %}magic_button
+                            {% elif category.name == "Fiction" %}auto_stories
+                            {% elif category.name == "Mystery" %}search_check
+                            {% elif category.name == "History" %}history_edu
+                            {% elif category.name == "Education" %}school
+                            {% elif category.name == "Comics" %}comic_bubble
+                            {% elif category.name == "Biography" %}person_book
+                            {% elif category.name == "Children" %}child_care
+                            {% elif category.name == "Science" %}science
+                            {% else %}book_2{% endif %}
+                          </span>
+                        </div>
+                        <h5>{{ category.name }}</h5>
+                        {% comment %} <p>Explore Books</p> {% endcomment %}
+                    </div>
+                </a>
+            {% endfor %}
+
+            <a href="{% url 'explore_books' %}" class="category-link text-decoration-none text-dark">
+                <div class="category-item text-center">
+                    <div class="icon-circle" style="background: #333;">➔</div>
+                    <h5>More</h5>
+                    {% comment %} <p>All Categories</p> {% endcomment %}
+                </div>
+            </a>
+        </div>
+        <button class="slider-btn right" onclick="scrollSlider(1)">›</button>
+    </div>
+  </div>
+</section>
+  
+<section id="services" class="services-content py-5 text-center">
     <div class="container text-center pb-5">
-      <h1 class="fw-bold mb-2">OUR SERVICES</h1>
+      <h2 class="fw-bold section-title">OUR SERVICES</h2>
       <p class="fw-medium mb-5">
         Everything you need to discover, exchange, and enjoy books—made simple.
       </p>
@@ -96,9 +140,9 @@
         <div class="col-12 col-md-4">
           <div class="card h-100 shadow-sm border-0 rounded-4">
             <div class="card-body">
-              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">diamond_shine</span>Earn Reward Points</h5>
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">payments</span>Buy with Cash</h5>
               <p class="card-text">
-                Earn points for every exchange and use them to unlock more books.
+                Purchase books directly with cash when exchange isn’t an option.
               </p>
             </div>
           </div>
@@ -126,9 +170,9 @@
         <div class="col-12 col-md-4">
           <div class="card h-100 shadow-sm border-0 rounded-4">
             <div class="card-body">
-              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">heart_plus</span>Wishlist & Tracking</h5>
+              <h5 class="card-title fw-semibold d-flex align-items-center justify-content-center mb-3"><span class="material-symbols-outlined">history</span>Exchange Tracking</h5>
               <p class="card-text">
-                Keep track of books you want to read and exchanges you’ve made.
+                Keep a clear record of books you’ve exchanged or purchased.
               </p>
             </div>
           </div>
@@ -145,7 +189,103 @@
         </div>
       </div>
     </div>
-  </section>
+</section>
+<section id="how-it-works" class="how-it-works py-5">
+    <div class="container text-center">
+        <h2 class="section-title fw-bold mb-5">HOW IT WORKS</h2>
+
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <div class="how-it-works-bg h-100">
+                    <h3 class="process-title">List a Book</h3>
+                    
+                    <div class="process-card">
+                        <span class="step-number">1</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">person_add</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Create Account</h6>
+                                <p class="mb-0 text-muted">Sign up and set up your reader profile to join the community.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-card" style="border: 2px dashed #0056b3;">
+                        <span class="step-number">2</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">upload_file</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Upload Details</h6>
+                                <p class="mb-0 text-muted">Add title, author, condition, and location. Set a price or mark for exchange.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="process-card">
+                        <span class="step-number">3</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">thumbs_up_down</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Review Requests</h6>
+                                <p class="mb-0 text-muted">Approve, reject, or send a counter-offer to interested readers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="how-it-works-bg h-100">
+                    <h3 class="process-title">Get a Book</h3>
+                    
+                    <div class="process-card">
+                        <span class="step-number">1</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">search</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Explore & Request</h6>
+                                <p class="mb-0 text-muted">Browse by genre or location and send an exchange or cash request.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-card">
+                        <span class="step-number">2</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">sync_alt</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Negotiate Deal</h6>
+                                <p class="mb-0 text-muted">Accept counter-offers. Only when both sides agree is the deal confirmed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-card">
+                        <span class="step-number">3</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">handshake</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Meet & Exchange</h6>
+                                <p class="mb-0 text-muted">Get contact details, coordinate a safe pickup, and finalize the trade.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-card">
+                        <span class="step-number">4</span>
+                        <div class="step-content d-flex align-items-start gap-3">
+                            <span class="material-symbols-outlined text-success">monitoring</span>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-1">Track Activity</h6>
+                                <p class="mb-0 text-muted">Monitor all your pending and completed deals from your dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
   </main>
 {% endblock %}
 

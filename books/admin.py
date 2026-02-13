@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Category, Genre, Inventory, Wishlist, ExchangeRequest
+from .models import Book, Category, Genre, Inventory, ExchangeRequest
 
 
 @admin.register(Book)
@@ -35,15 +35,33 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(Inventory)
 class InventoryAdmin(admin.ModelAdmin):
-    list_display = ("book", "status", "location")
+    list_display = (
+        "book",
+        "status",
+        "location",
+        "locked_exchange_display",
+        "updated_at",
+    )
+
     list_filter = ("status", "location")
-    search_fields = ("book__title",)
+    search_fields = ("book__title", "book__owner__username", "location")
 
+    readonly_fields = (
+        "locked_exchange",
+        "updated_at",
+    )
 
-@admin.register(Wishlist)
-class WishlistAdmin(admin.ModelAdmin):
-    list_display = ("user", "book")
-    search_fields = ("user__username", "book__title")
+    def locked_exchange_display(self, obj):
+        if obj.locked_exchange:
+            return f"Exchange #{obj.locked_exchange.id} ({obj.locked_exchange.status})"
+        return "—"
+
+    locked_exchange_display.short_description = "Locked by"
+
+# @admin.register(Wishlist)
+# class WishlistAdmin(admin.ModelAdmin):
+#     list_display = ("user", "book")
+#     search_fields = ("user__username", "book__title")
 
 
 @admin.register(ExchangeRequest)

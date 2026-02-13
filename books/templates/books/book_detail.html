@@ -84,42 +84,39 @@
 
                 <!-- Buttons -->
                 <div class="mt-4 d-flex gap-3">
-
                     {% if user != book.owner %}
-
+                
+                        {# 1. Completed Exchange #}
                         {% if exchange and exchange.status == "completed" %}
-                            <p class="text-success fw-semibold">
-                                Exchange completed ✔
-                            </p>
-                            <a href="{% url 'view_requested_books' %}" class="btn btn-outline-primary btn-sm">
-                                View My Requests
-                            </a>
-
-                        {% elif exchange and exchange.status in "pending approved" %}
-                            <p class="text-muted">
-                                Request already sent ({{ exchange.status|title }})
-                            </p>
-                            <a href="{% url 'view_requested_books' %}" class="btn btn-outline-primary btn-sm">
-                                View My Requests
-                            </a>
-                            
-                        {% else %}
-                            {# no exchange OR cancelled OR rejected #}
-
+                            <p class="text-success fw-semibold">Exchange completed ✔</p>
+                
+                        {# 2. Current user is the one who already requested/is approved #}
+                        {% elif exchange and exchange.requester == user and exchange.status in "pending,approved" %}
+                            <div>
+                                <p class="text-muted mb-1">Request already sent ({{ exchange.status|title }})</p>
+                                <a href="{% url 'view_requested_books' %}" class="btn btn-outline-primary btn-sm">
+                                    View My Requests
+                                </a>
+                            </div>
+                
+                        {# 3. Book is available (No active exchange OR it was cancelled/rejected) #}
+                        {% elif book.inventory.status == "available" %}
                             <a href="{% url 'request_exchange' book.slug %}" class="request-btn">
                                 Request Exchange
                             </a>
-
-                            <a href="{% url 'request_exchange' book.slug %}?cash=1"
-                            class="btn btn-success">
+                            <a href="{% url 'request_exchange' book.slug %}?cash=1" class="confirm-btn">
                                 Buy with Cash ₹{{ book.price }}
                             </a>
-
+                
+                        {# 4. Book is locked by someone else #}
+                        {% else %}
+                            <p class="text-warning fw-semibold">
+                                This book is currently being negotiated or is no longer available.
+                            </p>
                         {% endif %}
-
+                
                     {% endif %}
-
-                </div>    
+                </div>
 
             </div>
 

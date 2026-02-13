@@ -31,16 +31,16 @@
 
 <div class="exchange-card p-4 mb-3">
 
+    <!-- Header -->
     <div class="d-flex justify-content-between align-items-start">
         <div>
-            <div class="exchange-title">{{ r.book.title }}</div>
+            <div class="exchange-title">
+                {{ r.book.title }}
+            </div>
 
+            <!-- Exchange Date -->
             <div class="exchange-meta mt-1">
-                {% if user == r.requester %}
-                    Exchanged with {{ r.owner.username }}
-                {% else %}
-                    Exchanged with {{ r.requester.username }}
-                {% endif %}
+                Exchanged on {{ r.created_at|date:"d M Y" }}
             </div>
         </div>
 
@@ -49,18 +49,145 @@
 
     <div class="exchange-divider"></div>
 
-    <div class="exchange-contact">
-        {% if user == r.requester %}
-            Contact: {{ r.owner.email }} | {{ r.owner.profile.phone }}
+    <!-- Book Thumbnails -->
+    <!-- Book / Exchange Visual -->
+    {% if r.is_cash %}
+
+        <!-- CASH EXCHANGE -->
+        <div class="exchange-books justify-content-center">
+
+            <div class="exchange-book">
+                <img src="{{ r.book.cover_image.url|default:'/media/images/book-cover.png' }}"
+                    alt="{{ r.book.title }}">
+                <div class="exchange-book-title">{{ r.book.title }}</div>
+                <div class="exchange-meta mt-1">
+                    Sold for ₹{{ r.cash_amount }}
+                </div>
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <!-- BOOK ↔ BOOK EXCHANGE -->
+        <div class="exchange-books">
+
+            <div class="exchange-book">
+                <img src="{{ r.book.cover_image.url|default:'/media/images/book-cover.png' }}"
+                    alt="{{ r.book.title }}">
+                <div class="exchange-book-title">{{ r.book.title }}</div>
+            </div>
+
+            <div class="exchange-icon">🔄</div>
+
+            <div class="exchange-book">
+                <img src="{{ r.expected_book.cover_image.url|default:'/media/images/book-cover.png' }}"
+                    alt="{{ r.expected_book.title }}">
+                <div class="exchange-book-title">{{ r.expected_book.title }}</div>
+            </div>
+
+        </div>
+
+    {% endif %}
+
+    <!-- Role-based details -->
+    {% if user == r.owner %}
+        <!-- OWNER VIEW -->
+        {% if r.is_cash %}
+            <div class="exchange-meta">
+                Sold for <strong>₹{{ r.cash_amount }}</strong>
+            </div>
         {% else %}
-            Contact: {{ r.requester.email }} | {{ r.requester.profile.phone }}
+            <div class="exchange-meta">
+                Exchanged for <strong>{{ r.expected_book.title }}</strong>
+            </div>
+    {% endif %}
+
+    <div class="d-flex align-items-center gap-2 mt-2">
+
+        {% if r.requester.profile.avatar %}
+            <img src="{{ r.requester.profile.avatar.url }}"
+                 class="avatar shadow-sm"
+                 alt="{{ r.requester.username }}">
+        {% else %}
+            <div class="avatar placeholder-avatar d-flex align-items-center justify-content-center">
+                <span class="material-icons text-muted">person</span>
+            </div>
         {% endif %}
+    
+        <div class="exchange-meta">
+            {% if r.is_cash %}
+                Sold to <strong>{{ r.requester.username }}</strong>
+            {% else %}
+                Exchanged with <strong>{{ r.requester.username }}</strong>
+            {% endif %}
+        </div>
+    
+    </div>    
+
+    <div class="exchange-contact mt-2">
+        Contact: {{ r.requester.email }} | {{ r.requester.profile.phone }}
     </div>
 
-    <a href="{% url 'book_detail' r.book.slug %}"
-       class="btn btn-outline-primary btn-sm mt-3">
-        View Book
-    </a>
+    {% if not r.is_cash and r.expected_book %}
+        <a href="{% url 'book_detail' r.expected_book.slug %}" class="primary-btn mt-3">
+            View Received Book
+        </a>
+    {% endif %}
+
+
+    {% else %}
+        <!-- REQUESTER VIEW -->
+        {% if r.is_cash %}
+            <div class="exchange-meta">
+                Purchased for <strong>₹{{ r.cash_amount }}</strong>
+            </div>
+        {% else %}
+            <div class="exchange-meta">
+                Traded your copy of <strong>{{ r.expected_book.title }}</strong>
+            </div>
+        {% endif %}
+
+        <div class="d-flex align-items-center gap-2 mt-2">
+
+            {% if r.owner.profile.avatar %}
+                <img src="{{ r.owner.profile.avatar.url }}"
+                     class="avatar shadow-sm"
+                     alt="{{ r.owner.username }}">
+            {% else %}
+                <div class="avatar placeholder-avatar d-flex align-items-center justify-content-center">
+                    <span class="material-icons text-muted">person</span>
+                </div>
+            {% endif %}
+        
+            <div class="exchange-meta">
+                {% if r.is_cash %}
+                    Purchased from <strong>{{ r.owner.username }}</strong>
+                {% else %}
+                    Exchanged with <strong>{{ r.owner.username }}</strong>
+                {% endif %}
+            </div>
+        
+        </div>
+
+        <div class="exchange-contact mt-2">
+            Contact: {{ r.owner.email }} | {{ r.owner.profile.phone }}
+        </div>
+
+        {% if r.book.condition %}
+            <div class="exchange-meta mt-1">
+                Condition: {{ r.book.condition }}
+            </div>
+        {% endif %}
+
+        {% if r.book %}
+            <a href="{% url 'book_detail' r.book.slug %}" class="primary-btn mt-3">
+                View Book
+            </a>
+        {% endif %}
+
+
+    {% endif %}
 
 </div>
 

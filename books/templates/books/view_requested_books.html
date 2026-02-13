@@ -15,7 +15,6 @@
             <a href="{% url 'profile' %}" class="profile-icon">
                 <span class="material-icons">account_circle</span>
             </a>
-
             <a href="{% url 'Logout' %}" class="btn login-btn">
                 Logout
             </a>
@@ -24,237 +23,167 @@
 </header>
 
 <div class="container my-3 mx-5">
+    <h3 class="mb-4">My Requested Books</h3>
 
-<h3 class="mb-4">My Requested Books</h3>
+    {% for r in exchanges %}
+    <div class="exchange-card p-4 mb-3 shadow-sm">
 
-{% for r in exchanges %}
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <div class="exchange-title fw-bold fs-5 mb-2">
+                    {{ r.book.title }}
+                </div>
+            
+                <div class="d-flex align-items-center gap-2">
+                    {% if r.owner.profile.avatar %}
+                        <img src="{{ r.owner.profile.avatar.url }}" 
+                             class="avatar shadow-sm"
+                             alt="{{ r.owner.username }}">
+                    {% else %}
+                        <div class="avatar placeholder-avatar d-flex align-items-center justify-content-center">
+                            <span class="material-icons text-muted">person</span>
+                        </div>
+                    {% endif %}
+            
+                    <div class="exchange-meta">
+                        {{ r.owner.username }}
+                    </div>
+            
+                </div>
+            </div>            
 
-<div class="exchange-card p-4 mb-3 shadow-sm">
+            <span class="badge 
+                {% if r.status == 'completed' %}bg-success
+                {% elif r.status == 'approved' %}bg-primary
+                {% elif r.status == 'cancelled' %}bg-danger
+                {% elif r.status == 'rejected' %}bg-secondary
+                {% else %}bg-warning text-dark{% endif %} p-2">
+                {{ r.status|title }}
+            </span>
+        </div>
 
-<!-- HEADER -->
-<div class="d-flex justify-content-between align-items-start">
-    <div>
-        <div class="exchange-title">{{ r.book.title }}</div>
-        <div class="exchange-meta mt-1">
-            Owner: {{ r.owner.username }}
+        {% if r.cancel_reason and request.user != r.cancelled_by %}
+        <div class="alert alert-danger mt-3 mb-0">
+            <strong>Cancelled by:</strong> {{ r.cancelled_by.username }}<br>
+            <strong>Reason:</strong> {{ r.cancel_reason }}
+        </div>
+        {% endif %}
+
+        <div class="exchange-divider my-3" style="border-top: 1px solid #eee;"></div>
+
+        {% if r.reject_reason and request.user != r.rejected_by %}
+        <div class="alert alert-danger">
+            <strong>Rejected by:</strong> {{ r.rejected_by.username }}<br>
+            <strong>Reason:</strong> {{ r.reject_reason }}
+        </div>
+        {% endif %}
+
+        <div class="mb-3">
+            {% if r.expected_book %}
+            <p class="mb-2"><strong>Owner selected:</strong> {{ r.expected_book.title }}</p>
+            {% endif %}
+
+            {% if r.status != "cancelled" %}
+                {% if r.requester_wants_cash and not r.is_cash %}
+                <p class="alert alert-info py-2 mb-2">You requested to buy this book with cash.</p>
+                {% elif r.requester_wants_cash and r.is_cash %}
+                <p class="alert alert-success py-2 mb-2">Cash deal confirmed for ₹{{ r.cash_amount }}.</p>
+                {% elif r.is_cash %}
+                <p class="alert alert-secondary py-2 mb-2">Owner requested for cash deal as he didn't find a book to swap.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+            
+            {% if r.status == "pending" and r.expected_book or r.status == "pending" and r.is_cash %}
+                <a href="{% url 'accept_deal' r.id %}" class="btn btn-success btn-sm">Accept Deal</a>
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#reject{{ r.id }}">Reject Deal</button>
+            {% endif %}
+
+            {% if r.status == "approved" %}
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#contact{{ r.id }}">View Contact</button>
+                
+                {% if not r.requester_confirmed %}
+                    <a href="{% url 'confirm_exchange' r.id %}" class="btn btn-primary btn-sm">Mark as Received</a>
+                {% endif %}
+
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancel{{ r.id }}">Cancel</button>
+            {% endif %}
+
+            {% if r.status != "cancelled" and r.is_cash and not r.requester_wants_cash %}
+                <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#cash{{ r.id }}">View Cash Details</button>
+            {% endif %}
+
+            <a href="{% url 'book_detail' r.book.slug %}" class="btn btn-outline-primary btn-sm ms-md-auto">View Book Detail</a>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="reject{{ r.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3 contact-modal-custom">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Reject Deal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="{% url 'reject_deal' r.id %}">
+                    {% csrf_token %}
+                    <textarea name="reason" class="form-control mb-3" placeholder="Reason for rejecting" required></textarea>
+                    <button type="submit" class="btn btn-danger w-100">Reject Deal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="contact{{ r.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3 contact-modal-custom">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h5 class="mb-0">Owner Contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <hr>
+                <p><strong>Email:</strong> {{ r.owner.email }}</p>
+                <p class="mb-0"><strong>Phone:</strong> {{ r.owner.profile.phone }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="cash{{ r.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3 contact-modal-custom">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h5 class="mb-0">Cash Deal Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <hr>
+                <p><strong>Book:</strong> {{ r.book.title }}</p>
+                <p class="mb-0"><strong>Amount:</strong> ₹{{ r.cash_amount }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="cancel{{ r.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3 contact-modal-custom">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Cancel Exchange</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="{% url 'cancel_exchange' r.id %}">
+                    {% csrf_token %}
+                    <textarea name="reason" class="form-control mb-3" placeholder="Reason for cancelling" required></textarea>
+                    <button class="btn btn-danger w-100">Confirm Cancel</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <span class="badge exchange-badge exchange-badge-sm
-        {% if r.status == 'completed' %}bg-success
-        {% elif r.status == 'approved' %}bg-primary
-        {% elif r.status == 'cancelled' %}bg-danger
-        {% elif r.status == 'rejected' %}bg-secondary
-        {% else %}bg-warning text-dark{% endif %}">
-            {{ r.status|title }}
-    </span>
-
-
-    {% comment %} {% if r.status == "cancelled" and r.cancel_reason %} {% endcomment %}
-    {% if r.cancel_reason and request.user != r.cancelled_by %}
-    <div class="alert alert-danger mt-2">
-
-    <strong>Cancelled by:</strong> {{ r.cancelled_by.username }}<br>
-
-    <strong>Reason:</strong><br>
-    {{ r.cancel_reason }}
-
+    {% empty %}
+    <div class="text-center mt-5">
+        <p class="text-muted">No requested books found.</p>
     </div>
-    {% endif %}
-
+    {% endfor %}
 </div>
-
-<div class="exchange-divider"></div>
-
-{% if r.reject_reason and request.user != r.rejected_by %}
-<div class="alert alert-danger">
-<strong>Rejected by:</strong> {{ r.rejected_by.username }}<br>
-<strong>Reason:</strong> {{ r.reject_reason }}
-</div>
-{% endif %}
-
-<!-- OWNER SELECTED BOOK -->
-{% if r.expected_book %}
-<p>
-<strong>Owner selected:</strong> {{ r.expected_book.title }}
-</p>
-{% endif %}
-
-<!-- CASH REQUEST -->
-{% comment %} {% if r.is_cash %}
-<p>
-Owner didn't find a book to swap, but offered
-<strong>“{{ r.book.title }}”</strong> for <strong> ₹{{ r.cash_amount }}.</strong>
-</p> {% endcomment %}
-{% if r.status != "cancelled"%}
-{% if r.requester_wants_cash and not r.is_cash %}
-<p class="alert alert-info">
-You requested to buy this book with cash.
-</p>
-
-{% elif r.requester_wants_cash and r.is_cash%}
-<p class="alert alert-success">
-Cash deal confirmed for ₹{{ r.cash_amount }}.
-</p>
-
-{% elif r.is_cash %}
-<p class="alert alert-secondary">
-Owner requested for cash deal as he didn't find a book to swap.
-</p>
-
-<button class="btn btn-outline-dark btn-sm"
- data-bs-toggle="modal"
- data-bs-target="#cash{{ r.id }}">
-View Cash Details
-</button>
-{% endif %}
-{% endif %}
-
-<!-- ACCEPT / REJECT DEAL -->
-{% if r.status == "pending" and r.expected_book or r.status == "pending" and r.is_cash %}
-
-<a href="{% url 'accept_deal' r.id %}"
- class="btn btn-success btn-sm mt-2">
-Accept Deal
-</a>
-
-<button class="btn btn-outline-danger btn-sm mt-2"
- data-bs-toggle="modal"
- data-bs-target="#reject{{ r.id }}">
-Reject Deal
-</button>
-
-{% endif %}
-    
-<!-- CONTACT -->
-{% if r.status == "approved" %}
-
-{% comment %} <div class="exchange-contact mt-2">
-Contact: {{ r.owner.email }} | {{ r.owner.profile.phone }}
-</div> {% endcomment %}
-
-<button class="btn btn-success btn-sm mt-2"
- data-bs-toggle="modal"
- data-bs-target="#contact{{ r.id }}">
-View Contact
-</button>
-
-{% endif %}
-
-<!-- CONFIRM RECEIVED -->
-{% if r.status == "approved" and not r.requester_confirmed %}
-
-<a href="{% url 'confirm_exchange' r.id %}"
- class="confirm-btn mt-3">
-Mark as Received
-</a>
-
-{% endif %}
-
-<!-- CANCEL AFTER APPROVAL -->
-{% if r.status == "approved" %}
-
-<button class="btn btn-outline-danger btn-sm mt-2"
- data-bs-toggle="modal"
- data-bs-target="#cancel{{ r.id }}">
-Cancel
-</button>
-
-{% endif %}
-
-<a href="{% url 'book_detail' r.book.slug %}"
- class="primary-btn mt-3">
-View Book
-</a>
-
-</div>
-
-<div class="modal fade" id="reject{{ r.id }}" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3">
-  
-        <form method="post" action="{% url 'reject_deal' r.id %}">
-          {% csrf_token %}
-  
-          <h5>Reject Deal</h5>
-  
-          <textarea name="reason"
-            class="form-control mb-3"
-            placeholder="Reason for rejecting"
-            required></textarea>
-  
-            <button type="submit" class="btn btn-danger w-100">
-                Reject Deal
-            </button>
-  
-        </form>
-  
-      </div>
-    </div>
-</div>  
-
-<!-- CONTACT MODAL -->
-<div class="modal fade" id="contact{{ r.id }}">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content p-3">
-
-<h5>Owner Contact</h5>
-
-<p>Email: {{ r.owner.email }}</p>
-<p>Phone: {{ r.owner.profile.phone }}</p>
-
-{% comment %} {% if r.is_cash %}
-<p><strong>Amount:</strong> ₹{{ r.cash_amount }}</p>
-{% endif %} {% endcomment %}
-
-</div>
-</div>
-</div>
-
-<!-- CASH MODAL -->
-<div class="modal fade" id="cash{{ r.id }}">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content p-3">
-
-<h5>Cash Deal</h5>
-
-<p>Book Name: {{ r.book.title }}</p>
-<p>Amount: ₹{{ r.cash_amount }}</p>
-
-</div>
-</div>
-</div>
-
-<!-- CANCEL MODAL -->
-<div class="modal fade" id="cancel{{ r.id }}">
-<div class="modal-dialog modal-dialog-centered">
-
-<form method="post" action="{% url 'cancel_exchange' r.id %}">
-{% csrf_token %}
-
-<div class="modal-content p-3">
-
-<h5>Cancel Exchange</h5>
-
-<textarea name="reason"
- class="form-control mb-3"
- placeholder="Reason"
- required></textarea>
-
-<button class="btn btn-danger w-100">
-Cancel Exchange
-</button>
-
-</div>
-</form>
-
-</div>
-</div>
-
-{% empty %}
-<p>No requested books.</p>
-
-{% endfor %}
-</div>
-
 {% endblock %}

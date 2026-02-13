@@ -54,26 +54,46 @@
                         <strong>{{ book.title }}</strong>
                         <div>{{ book.author }}</div>
 
-                        <div class="mt-2 d-flex justify-content-center gap-2">
+                        <div class="mt-2 d-flex justify-content-center gap-2 flex-wrap">
 
+                            {# ALWAYS allow view if not exchanged #}
+                            {% if book.inventory.status != "exchanged" %}
                             <a href="{% url 'book_detail' book.slug %}"
                                class="btn btn-sm btn-outline-success">
                                 View
                             </a>
+                            {% endif %}
                         
-                            <a href="{% url 'edit_book' book.id %}"
-                               class="btn btn-sm btn-outline-primary">
-                                Edit
-                            </a>
+                            {# ONLY when AVAILABLE #}
+                            {% if book.inventory.status == "available" %}
                         
-                            <button type="button"
-                                class="btn btn-sm btn-outline-danger"
-                                data-bs-toggle="modal"
-                                data-bs-target="#delete{{ book.id }}">
-                                Delete
-                            </button>
+                                <a href="{% url 'edit_book' book.id %}"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Edit
+                                </a>
                         
-                        </div>                        
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#delete{{ book.id }}">
+                                    Delete
+                                </button>
+                        
+                            {% elif book.inventory.status == "exchanged" %}
+                        
+                                <span class="badge bg-success mt-2">
+                                    Already Exchanged
+                                </span>
+                        
+                            {% else %}
+                        
+                                <span class="badge bg-warning text-dark mt-2">
+                                    In Exchange
+                                </span>
+                        
+                            {% endif %}
+                        
+                        </div>                                               
 
                     </div>                      
 

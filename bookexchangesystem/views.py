@@ -2,10 +2,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 # from .forms import LoginForm
+from books.models import Category
 
 def homepage(request):
-    #return HttpResponse("Hello World! This is home page.")
-    return render(request,'home.html')
+    # Get the first 10 categories (excluding 'Others')
+    categories = Category.objects.exclude(name="Others")[:10]
+    
+    return render(request, 'home.html', {
+        'categories': categories,
+    })
 
 def services(request):
     #return HttpResponse("This is services page.")

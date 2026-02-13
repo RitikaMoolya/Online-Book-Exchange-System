@@ -35,7 +35,7 @@
                      <li><a href="#services">Services</a></li>
                      
                      <li><a href="{% url 'explore_books' %}">Explore Books</a></li>
-                     <li><a href="{% url 'Contact Us' %}">Contact</a></li>
+                     <li><a href="#footer-section">Contact</a></li>
                  </ul>
              </div>
              <div class="nav-btns d-flex align-items-center gap-3">
@@ -70,7 +70,7 @@
             {% endblock %}
         </main>
         
-        <footer class="footer-section text-white">
+        {% comment %} <footer id="footer-section" class="footer-section text-white">
             <div class="container py-5">
               <div class="row gy-4 justify-content-center text-center text-md-start">
                 <!-- Brand -->
@@ -93,10 +93,10 @@
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Explore Books</a></li>
                     <li><a href="#">Contact Us</a></li>
-                    {% comment %} <li><a href="#">Explore Books</a></li> {% endcomment %}
+                    {% comment %} <li><a href="#">Explore Books</a></li> 
                   </ul>
                 </div>          
-                <!-- Pages -->
+                Pages 
                 {% comment %} <div class="col-md-3">
                   <h5 class="footer-title">Pages</h5>
                   <ul class="footer-links">
@@ -106,8 +106,8 @@
                     <li><a href="#">404 Page</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                   </ul>
-                </div> {% endcomment %}
-                <!-- Newsletter -->
+                </div> 
+                Newsletter 
                 <div class="col-md-3 d-flex flex-column align-items-center align-items-md-start">
                   <h5 class="footer-title">Stay Connected</h5>
                   <div class="newsletter-box d-flex rounded-pill overflow-hidden bg-white">
@@ -127,13 +127,70 @@
           
               </div>
             </div>
-            <!-- Bottom Bar -->
+            Bottom Bar 
             <div class="footer-bottom text-center py-3 small">
               <p class="mb-0">
                 © 2025 BookLoop
               </p>
             </div>
-          </footer>
+          </footer> {% endcomment %}
+          <footer id="footer-section" class="footer-section text-white" style="background-color: #010a13;">
+            <div class="container py-4">
+                <div class="row gy-4">
+                    <div class="col-md-4">
+                        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined text-success">menu_book</span>
+                            <h4 class="mb-0 text-success fw-bold">BookLoop</h4>
+                        </div>
+                        <p class="footer-text mb-4">Your next great read starts here.</p>
+                        <p class="mb-1">(480) 555-0103</p>
+                        <p class="mb-4">hello@bookloop.com</p>
+                        
+                        <h6 class="pt-4">Social Community</h6>
+                        <div class="social-icons d-flex gap-3 mt-2">
+                            <a href="#" class="text-white fs-5"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="text-white fs-5"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="text-white fs-5"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" class="text-white fs-5"><i class="fa-brands fa-pinterest"></i></a>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <h5 class="footer-title fw-bold mb-4">Helpful Links</h5>
+                        <ul class="footer-links list-unstyled">
+                            <li class="mb-2"><a href="{% url 'Home' %}" class="text-decoration-none">Home</a></li>
+                            <li class="mb-2"><a href="#categories" class="text-decoration-none">Explore Categories</a></li>
+                            <li class="mb-2"><a href="#services" class="text-decoration-none">Services</a></li>
+                            <li class="mb-2"><a href="{% url 'explore_books' %}" class="text-decoration-none">Explore Books</a></li>
+                            {% comment %} <li class="mb-2"><a href="#footer-section" class="text-decoration-none">Contact Us</a></li> {% endcomment %}
+                        </ul>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <h5 class="footer-title fw-bold mb-4">Stay Connected</h5>
+                        <form action="https://api.web3forms.com/submit" method="POST" id="footer-contact-form">
+                            <input type="hidden" name="access_key" value="f7ae41a3-261d-4e5f-bbf3-6d08402bb2cf">
+                            
+                            <div class="mb-3">
+                                <input type="text" name="Name" class="footer-input" placeholder="Your Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" name="Email" class="footer-input" placeholder="Your Email" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="message" class="footer-input" rows="2" placeholder="Your Message" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-outline-success rounded-pill px-5 mt-2">Submit</button>
+                            <div id="footer-form-result" class="mt-2 small"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center py-3">
+                <p class="mb-0">© 2025 BookLoop</p>
+            </div>
+        </footer>
 
         <!-- Toast Messages -->
         {% if messages %}
